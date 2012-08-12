@@ -7,7 +7,7 @@ class graphite::params {
   $build_dir = "/tmp/graphite_build_root"
 
   $series = "0.9"
-  $version = "0.9.9"
+  $version = "0.9.10"
 
   $whisper_dl_url = "http://launchpad.net/graphite/${series}/${version}/+download/whisper-${version}.tar.gz"
   $whisper_dl_loc = "whisper-${version}.tar.gz"
