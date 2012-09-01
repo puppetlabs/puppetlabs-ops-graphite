@@ -8,6 +8,7 @@ class graphite (
 
   $graphitedir       = $graphite::params::graphitedir
   $graphiteuser      = $graphite::params::graphiteuser
+  $graphitegroup     = $graphite::params::graphitegroup
   $graphiteapproot   = "${graphitedir}/webapp/graphite"
   $graphitewebroot   = "${graphitedir}/webapp"
   $graphitegunsocket = 'http://127.0.0.1:3232/'
@@ -41,6 +42,11 @@ class graphite (
   package { 'python-django-tagging':  ensure => installed; }
   package { 'python-simplejson':      ensure => installed; }
 
+  group { $graphitegroup:
+    ensure => present,
+    system => true,
+  }
+
   user { $graphiteuser:
     ensure     => present,
     system     => true,
@@ -48,6 +54,7 @@ class graphite (
     managehome => false,
     home       => $graphitedir,
     before     => Class['graphite::install'],
+    require    => Group[$graphitegroup],
   }
 
   file { "${graphitedir}/conf/graphite.wsgi":
